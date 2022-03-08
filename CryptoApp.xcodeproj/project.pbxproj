@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A16AAF3227CE612E00102133 /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AAF3127CE612E00102133 /* DetailedViewController.swift */; };
+		A1BF82A627D608D600877F3E /* CryptoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF82A527D608D600877F3E /* CryptoTableViewCell.swift */; };
 		A1C490F827C5E79700A31D4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C490F727C5E79700A31D4C /* AppDelegate.swift */; };
 		A1C490FC27C5E79700A31D4C /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C490FB27C5E79700A31D4C /* BasicViewController.swift */; };
 		A1C4910127C5E79900A31D4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1C4910027C5E79900A31D4C /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		A16AAF3127CE612E00102133 /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
+		A1BF82A527D608D600877F3E /* CryptoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewCell.swift; sourceTree = "<group>"; };
 		A1C490F427C5E79700A31D4C /* CryptoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1C490F727C5E79700A31D4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1C490FB27C5E79700A31D4C /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1BF82A427D608B100877F3E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A1BF82A527D608D600877F3E /* CryptoTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A1C490EB27C5E79700A31D4C = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 			children = (
 				A1C4910D27C5E9B200A31D4C /* Resourse */,
 				A1C4910E27C5E9BE00A31D4C /* ViewControllers */,
+				A1BF82A427D608B100877F3E /* View */,
 				A1C4911127C5EB9200A31D4C /* Network */,
 				A1C4911227C5EE3400A31D4C /* Mdels */,
 				A1C4910F27C5E9D100A31D4C /* Storyboards */,
@@ -190,6 +201,7 @@
 			files = (
 				A1C490FC27C5E79700A31D4C /* BasicViewController.swift in Sources */,
 				A1C490F827C5E79700A31D4C /* AppDelegate.swift in Sources */,
+				A1BF82A627D608D600877F3E /* CryptoTableViewCell.swift in Sources */,
 				A16AAF3227CE612E00102133 /* DetailedViewController.swift in Sources */,
 				A1D2FAAE27C7C2460045A4A7 /* NetworkService.swift in Sources */,
 				A1C4910C27C5E7D000A31D4C /* CryptoModel.swift in Sources */,

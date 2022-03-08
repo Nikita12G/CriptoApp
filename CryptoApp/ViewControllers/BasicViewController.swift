@@ -10,9 +10,10 @@ import UIKit
 class BasicViewController: UIViewController, UITableViewDelegate {
     
     private var cryptoModel = [CryptoModelElement]()
-    private var cryptoData: [CryptoModelElement] = []
     private var sorting: Bool = false
-    
+    lazy var sortCryptoModel = {
+        return self.cryptoModel.sorted(by: {$0.name > $1.name})
+    } ()
     private let detailedViewController = DetailedViewController()
     
     private let cryptoTable: UITableView = {
@@ -28,16 +29,14 @@ class BasicViewController: UIViewController, UITableViewDelegate {
         return refresh
     }()
     
-    private let sortingBarButton: UIBarButtonItem = {
+    private var sortingTableButton: UIBarButtonItem {
         let button = UIBarButtonItem(
-            title: "A <-> Z",
+            title: "🔀",
             style: .done,
             target: self,
-            action: #selector(sortingMeaning)
-        )
-        
+            action: #selector(sortingTable))
         return button
-    }()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +52,8 @@ class BasicViewController: UIViewController, UITableViewDelegate {
         cryptoTable.refreshControl = tableRefreshControl
         cryptoTableConstraints()
         title = "Crypto Coin Gecko"
-        navigationItem.rightBarButtonItem = sortingBarButton
+        navigationItem.rightBarButtonItem = sortingTableButton
+        cryptoTable.register(CryptoTableViewCell.self, forCellReuseIdentifier: CryptoTableViewCell.reuseId)
     }
     
     //    MARK: - Private func
@@ -75,13 +75,19 @@ class BasicViewController: UIViewController, UITableViewDelegate {
         sender.endRefreshing()
     }
     
-    @objc private func sortingMeaning() {
-        print("ppp")
-        cryptoModel = cryptoModel.sorted(by: {$0.name < $1.name})
-        print(cryptoModel)
+    @objc private func sortingTable() {
+        if sorting == false {
+            sorting = true
+            cryptoTable.reloadData()
+        } else {
+            sorting = false
+            cryptoTable.reloadData()
+        }
+    }
+    @objc private func backSort () {
+        sorting = false
         cryptoTable.reloadData()
     }
-    
 }
 
 //    MARK: - Table View Data Source
@@ -93,11 +99,16 @@ extension BasicViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: CryptoTableViewCell.reuseId)
+
+        if sorting == false {
+            cell.textLabel?.text = cryptoModel[indexPath.row].name
+            cell.detailTextLabel?.text = cryptoModel[indexPath.row].categoryId
+        } else {
+            cell.textLabel?.text = sortCryptoModel[indexPath.row].name
+            cell.detailTextLabel?.text = sortCryptoModel[indexPath.row].categoryId
+        }
         
-        cell.textLabel?.text = cryptoModel[indexPath.row].name
-        cell.detailTextLabel?.text = cryptoModel[indexPath.row].categoryId
-                
         return cell
     }
     
