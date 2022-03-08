@@ -23,6 +23,7 @@ class CryptoTableViewCell: UITableViewCell {
         contentView.addSubview(cryptoTextLabelCell)
         contentView.addSubview(cryptoDetailTextLabel)
         
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -17,9 +17,9 @@ class BasicViewController: UIViewController, UITableViewDelegate {
     private let detailedViewController = DetailedViewController()
     
     private let cryptoTable: UITableView = {
-        let table = UITableView.init(frame: .zero, style: .grouped)
+        let table = UITableView.init(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(CryptoTableViewCell.self, forCellReuseIdentifier: CryptoTableViewCell.reuseId)
         return table
     }()
     
@@ -53,7 +53,7 @@ class BasicViewController: UIViewController, UITableViewDelegate {
         cryptoTableConstraints()
         title = "Crypto Coin Gecko"
         navigationItem.rightBarButtonItem = sortingTableButton
-        cryptoTable.register(CryptoTableViewCell.self, forCellReuseIdentifier: CryptoTableViewCell.reuseId)
+        
     }
     
     //    MARK: - Private func
@@ -88,6 +88,14 @@ class BasicViewController: UIViewController, UITableViewDelegate {
         sorting = false
         cryptoTable.reloadData()
     }
+    
+    @objc func didChangeSwitch(_ sender: UISwitch) {
+        if sender.isOn {
+            print("IsOn")
+        } else {
+            print("isOf")
+        }
+    }
 }
 
 //    MARK: - Table View Data Source
@@ -100,7 +108,17 @@ extension BasicViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: CryptoTableViewCell.reuseId)
-
+        
+        let favoriteSwitch: UISwitch = {
+            let favoriteSwitch = UISwitch()
+            favoriteSwitch.addTarget(
+                self,
+                action: #selector(didChangeSwitch(_:)),
+                for: .valueChanged)
+            favoriteSwitch.isOn = false
+            return favoriteSwitch
+        }()
+        
         if sorting == false {
             cell.textLabel?.text = cryptoModel[indexPath.row].name
             cell.detailTextLabel?.text = cryptoModel[indexPath.row].categoryId
@@ -108,6 +126,8 @@ extension BasicViewController: UITableViewDataSource {
             cell.textLabel?.text = sortCryptoModel[indexPath.row].name
             cell.detailTextLabel?.text = sortCryptoModel[indexPath.row].categoryId
         }
+        
+        cell.accessoryView = favoriteSwitch
         
         return cell
     }
@@ -117,5 +137,8 @@ extension BasicViewController: UITableViewDataSource {
         detailedViewController.cryptoName.text = cryptoModel[indexPath.row].name
         detailedViewController.categoryId.text = cryptoModel[indexPath.row].categoryId
         
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60.0
     }
 }
